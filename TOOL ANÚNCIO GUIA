@@ -1,0 +1,114 @@
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+
+-- Define o local correto para renderizar a UI
+local parentUI = (gethui and gethui()) or CoreGui or Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Remove a interface anterior se ja existir
+if parentUI:FindFirstChild("PainelToolWarningUI") then
+    parentUI.PainelToolWarningUI:Destroy()
+end
+
+-- Criar ScreenGui principal
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "PainelToolWarningUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = parentUI
+
+-- Janela Principal
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0, 320, 0, 260)
+mainFrame.Position = UDim2.new(0.5, -160, 0.5, -130)
+mainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+mainFrame.BorderSizePixel = 0
+mainFrame.Parent = screenGui
+
+-- Borda Branca da Janela Principal
+local frameStroke = Instance.new("UIStroke")
+frameStroke.Color = Color3.fromRGB(255, 255, 255)
+frameStroke.Thickness = 3
+frameStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+frameStroke.Parent = mainFrame
+
+-- Margens internas
+local padding = Instance.new("UIPadding")
+padding.PaddingTop = UDim.new(0, 10)
+padding.PaddingBottom = UDim.new(0, 10)
+padding.PaddingLeft = UDim.new(0, 12)
+padding.PaddingRight = UDim.new(0, 12)
+padding.Parent = mainFrame
+
+-- 1. TÍTULO (Fixo no Topo)
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0, 25)
+titleLabel.Position = UDim2.new(0, 0, 0, 0)
+titleLabel.BackgroundTransparency = 1
+titleLabel.Text = "GUIA DO PAINEL TOOL"
+titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.TextSize = 18
+titleLabel.Font = Enum.Font.Arcade
+titleLabel.Parent = mainFrame
+
+-- 2. ÁREA ROLÁVEL (ScrollingFrame para os textos)
+local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Size = UDim2.new(1, 0, 1, -75) -- Deixa espaço para o título e o botão
+scrollFrame.Position = UDim2.new(0, 0, 0, 30)
+scrollFrame.BackgroundTransparency = 1
+scrollFrame.BorderSizePixel = 0
+scrollFrame.ScrollBarThickness = 4
+scrollFrame.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
+scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0) -- Ajustado automaticamente
+scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
+scrollFrame.Parent = mainFrame
+
+local scrollLayout = Instance.new("UIListLayout")
+scrollLayout.SortOrder = Enum.SortOrder.LayoutOrder
+scrollLayout.Padding = UDim.new(0, 8)
+scrollLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+scrollLayout.Parent = scrollFrame
+
+-- Função para criar os blocos de texto (Com fonte maior e mais legível)
+local function createLabel(text, size, alignment, order)
+    local label = Instance.new("TextLabel")
+    label.Size = UDim2.new(1, -8, 0, 0) -- Largura ajustada para o scroll
+    label.AutomaticSize = Enum.AutomaticSize.Y
+    label.BackgroundTransparency = 1
+    label.Text = text
+    label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    label.TextSize = size
+    label.Font = Enum.Font.Arcade
+    label.TextWrapped = true
+    label.TextXAlignment = alignment
+    label.LayoutOrder = order
+    label.Parent = scrollFrame
+    return label
+end
+
+-- Conteúdo com texto completo e correção ortográfica
+createLabel("Para utilizar o PAINEL TOOL com excelência, você deve ativar o Backpack Adapter.", 13, Enum.TextXAlignment.Left, 1)
+createLabel("Ao ativar o Backpack Adapter, você conseguirá utilizar as ferramentas (TOOLS) da Backpack como se fosse um inventário. O projeto ainda está em desenvolvimento.", 13, Enum.TextXAlignment.Left, 2)
+createLabel("AVISO IMPORTANTE", 14, Enum.TextXAlignment.Left, 3)
+createLabel("O Tool SELECT MATTER V2 não está funcionando perfeitamente e nem o Telekinesis. Caso queira utilizar o Telekinesis, use de forma independente como um Tool normal, sem utilizar a Backpack.", 13, Enum.TextXAlignment.Left, 4)
+
+-- 3. BOTÃO FECHAR UI (Fixo no Rodapé)
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 130, 0, 32)
+closeBtn.Position = UDim2.new(0.5, -65, 1, -32)
+closeBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+closeBtn.Text = "FECHAR UI"
+closeBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeBtn.Font = Enum.Font.Arcade
+closeBtn.TextSize = 16
+closeBtn.Parent = mainFrame
+
+-- Borda da caixa do Botão
+local btnStroke = Instance.new("UIStroke")
+btnStroke.Color = Color3.fromRGB(255, 255, 255)
+btnStroke.Thickness = 2
+btnStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+btnStroke.Parent = closeBtn
+
+-- Ação para fechar 100% o script
+closeBtn.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
