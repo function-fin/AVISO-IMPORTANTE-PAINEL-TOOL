@@ -13,6 +13,7 @@ end
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "PainelToolWarningUI"
 screenGui.ResetOnSpawn = false
+screenGui.DisplayOrder = 999999 -- <-- ADICIONADO AQUI: Garante que fique acima de qualquer outra UI do jogo
 screenGui.Parent = parentUI
 
 -- Janela Principal
