@@ -1,5 +1,6 @@
 local Players = game:GetService("Players")
 local CoreGui = game:GetService("CoreGui")
+local UserInputService = game:GetService("UserInputService")
 
 -- Define o local correto para renderizar a UI
 local parentUI = (gethui and gethui()) or CoreGui or Players.LocalPlayer:WaitForChild("PlayerGui")
@@ -13,8 +14,21 @@ end
 local screenGui = Instance.new("ScreenGui")
 screenGui.Name = "PainelToolWarningUI"
 screenGui.ResetOnSpawn = false
-screenGui.DisplayOrder = 999999 -- <-- ADICIONADO AQUI: Garante que fique acima de qualquer outra UI do jogo
+screenGui.IgnoreGuiInset = true
+screenGui.DisplayOrder = 999999 -- Garante que fique acima de qualquer outra UI do jogo
 screenGui.Parent = parentUI
+
+-- // CONFIGURAÇÃO DE UISCALE SOLICITADA
+local UiScale = Instance.new("UIScale", screenGui)
+local function UpdateUIScale()
+    if not UserInputService.TouchEnabled then
+        UiScale.Scale = 1.9 -- 90% maior no PC
+    else
+        UiScale.Scale = 1.0 -- Tamanho padrão no mobile
+    end
+end
+UpdateUIScale()
+UserInputService:GetPropertyChangedSignal("TouchEnabled"):Connect(UpdateUIScale)
 
 -- Janela Principal
 local mainFrame = Instance.new("Frame")
