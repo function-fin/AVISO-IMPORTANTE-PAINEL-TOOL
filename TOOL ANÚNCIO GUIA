@@ -102,8 +102,6 @@ end
 -- Conteúdo com texto completo e correção ortográfica
 createLabel("Para utilizar o PAINEL TOOL com excelência, você deve ativar o Backpack Adapter.", 13, Enum.TextXAlignment.Left, 1)
 createLabel("Ao ativar o Backpack Adapter, você conseguirá utilizar as ferramentas (TOOLS) da Backpack como se fosse um inventário. O projeto ainda está em desenvolvimento.", 13, Enum.TextXAlignment.Left, 2)
-createLabel("AVISO IMPORTANTE", 14, Enum.TextXAlignment.Left, 3)
-createLabel("O Tool SELECT MATTER V2 não está funcionando perfeitamente e nem o Telekinesis. Caso queira utilizar o Telekinesis, use de forma independente como um Tool normal, sem utilizar a Backpack.", 13, Enum.TextXAlignment.Left, 4)
 
 -- 3. BOTÃO FECHAR UI (Fixo no Rodapé)
 local closeBtn = Instance.new("TextButton")
